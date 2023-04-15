@@ -2,7 +2,7 @@
 #define ROOK_HPP 
 
 class Rook{
-
+    
 };
 
 #endif 
