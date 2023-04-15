@@ -3,4 +3,6 @@
 
 class Board{
     
-}
+};
+
+#endif 
