@@ -11,7 +11,8 @@ int main(){
         game.display();
         game.turn();
     }
-
+    
+    cout <<"Good Game!";
     cout << "Testing out the source control that vscode has. Nice job team!";
     return 0; 
 }
