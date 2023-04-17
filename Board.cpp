@@ -10,20 +10,19 @@ Board:: Board(){
     whiteTurn = true; 
     moves = 0; 
 
-    // for (int i = 0; i < 8; i++)
-    // {
-    //     for (int j = 0; j < 8; j++)
-    //     {
-    //         playArea[i][j] = Chesspiece(); 
-    //     }
-        
-    // }
-        // initialize all elements of the playArea array to nullptr
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            playArea[i][j] = nullptr;
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            playArea[i][j] = new Chesspiece(); 
         }
     }
+        // initialize all elements of the playArea array to nullptr
+    // for (int i = 0; i < 8; i++) {
+    //     for (int j = 0; j < 8; j++) {
+    //         playArea[i][j] = nullptr;
+    //     }
+    // }
 
     // cout << "array of null ptrs made" << endl;
     //Its likely all the following code will be changed except for the initializing team names-> The rest will probably have to use the consttructors
@@ -99,16 +98,18 @@ void Board:: turn(){
     }
     y-=1;
     cout<< "You have chosen " << x+1 << "," << y+1 << endl; 
-    swapPiece( x, y, ogRow, ogCol);
-    cout << "ran swap" << endl;
+
     //Here would be code that moves stuff around, checks if king is moving into wrong spot, handles captures, etc-> 
     //I imagine this function will be changed a LOT from what it is now-> 
     //Idea checklist:
     //Check if occupied by opponent or team piece(return false, might have to turn this into a bool function or something, or make one)
+    
     //Check if valid move based on piece
     // If empty, swap pieces
+    swapPiece( x, y, ogRow, ogCol);
+    cout << "ran swap" << endl;
     // If occupied by enemy, make enemy default constructor again (or destroy it somehow), and then swap
-    
+
     moves++;
     swapTurn();
 
@@ -130,7 +131,6 @@ void Board:: display(){
         cout << row + 1 <<"    "; 
         for (int col = 0; col <8; col++)
         {
-            // cout << "deepest layer of loop" << endl; 
             if(playArea[row][col] == nullptr){
                 cout << "nonam" << "\t\t";
             }

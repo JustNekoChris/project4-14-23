@@ -12,7 +12,9 @@ class Chesspiece{
 
         std:: string getName()const{return name;}
         char getTeam()const{return team;}
-        virtual bool MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playArea[][8]) = 0; 
+        virtual bool MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playArea[][8]){
+            return false;
+        }; 
 
 
     protected:
