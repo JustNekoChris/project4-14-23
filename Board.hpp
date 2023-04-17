@@ -11,8 +11,8 @@ class Board{
         int getMoves()const{return moves;}
 
     protected:
-        //Chesspiece playArea[8][8];
-        //This gets around the error of creating objects with purely virtual functions. 
+        //NOT A ISSUE ANYMORE: This gets around the error of creating objects with purely virtual functions.
+
         Chesspiece* playArea[8][8];
         bool whiteTurn;
         int moves;
