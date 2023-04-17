@@ -8,7 +8,9 @@ int main(){
     // cout << test.getName() << endl; 
     Board game;
     while(game.getMoves() < 50){
+        // cout << "predisplay" << endl;
         game.display();
+        // cout << "post display" << endl; 
         game.turn();
       
     }
