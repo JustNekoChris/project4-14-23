@@ -56,23 +56,23 @@ void Board:: turn(){
     else{
         cout << "It is Black's turn" << endl; 
     }
-    int ogx = 0, ogy = 0;
+    int ogRow = 0, ogCol = 0;
     int x = 0,y = 0;
 
 
     cout<< "Which piece would you like to move? Enter the x axis first(1-8)" << endl;
-    while( ogx<1 || ogx>8){
-        cin >> ogx;
+    while( ogRow<1 || ogRow>8){
+        cin >> ogRow;
     }
-    ogx-=1;
+    ogRow-=1;
     cout << "Enter the y axis now" << endl;
-    while( ogy<1 || ogy>8){
-        cin >> ogy;
+    while( ogCol<1 || ogCol>8){
+        cin >> ogCol;
     }
-    ogy-=1;
+    ogCol-=1;
     
 
-    cout << "You have selected " << playArea[ogx][ogy].getName() << " on team " << playArea[ogx][ogy].getTeam() << endl;
+    cout << "You have selected " << playArea[ogCol][ogRow].getName() << " on team " << playArea[ogCol][ogRow].getTeam() << endl;
     
 
     cout<< "Where would you like to move? Enter the x axis first (1-8)" << endl;
@@ -86,6 +86,8 @@ void Board:: turn(){
     }
     y-=1;
     cout<< "You have chosen " << x+1 << "," << y+1 << endl; 
+    swapPiece( x, y, ogRow, ogCol);
+    cout << "ran swap" << endl;
     //Here would be code that moves stuff around, checks if king is moving into wrong spot, handles captures, etc.
     //I imagine this function will be changed a LOT from what it is now. 
     //Idea checklist:
@@ -125,4 +127,11 @@ void Board:: display(){
         cout << "  " << i+1<< "  " << "\t\t";
     }
     cout << endl;
+}
+void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
+{
+    Chesspiece& piece1 = playArea[ogCol][ogRow];
+    Chesspiece& piece2 = playArea[tCol][tRow];
+    swap(piece1, piece2);
+   
 }

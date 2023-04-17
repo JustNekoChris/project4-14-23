@@ -7,7 +7,7 @@ class Board{
         void turn();
         void display();
         void swapTurn();
-
+        void swapPiece(int tRow, int tCol ,int ogRow,int ogCol);
         int getMoves()const{return moves;}
 
     protected:

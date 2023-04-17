@@ -10,6 +10,7 @@ int main(){
     while(game.getMoves() < 50){
         game.display();
         game.turn();
+      
     }
     
     cout <<"Good Game!";
