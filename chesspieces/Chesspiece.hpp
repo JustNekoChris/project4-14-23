@@ -6,8 +6,7 @@ class Chesspiece{
     public:
         Chesspiece();
         Chesspiece(char team, std::string name);
-        void setTeam(char team);
-        void setName(std:: string name);
+        void setInfo(char team, std::string name);
         //The setterss could be 1 function ngl 
 
         std:: string getName()const{return name;}
@@ -15,6 +14,7 @@ class Chesspiece{
         virtual bool MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playArea[][8]){
             return false;
         }; 
+        struct Point;
 
 
     protected:

@@ -14,9 +14,12 @@ Chesspiece:: Chesspiece(char team, std::string name){
     this-> name = name;
     isThreatened = false;
 }
-void Chesspiece:: setTeam(char team){
+void Chesspiece:: setInfo(char team, std::string name){
     this->team = team; 
-}
-void Chesspiece:: setName(std:: string name){
     this->name = name;
 }
+struct Point
+{
+    int x;
+    int y;
+};
