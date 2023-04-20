@@ -23,3 +23,9 @@ struct Point
     int x;
     int y;
 };
+void Chesspiece:: setPosX(int x){
+    posX = x;
+}
+void Chesspiece:: setPosY(int y){
+    posY = y;
+}
