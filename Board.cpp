@@ -42,7 +42,7 @@ Board:: Board(){
     for (int i = 0; i < 8; i++)
     {
         // playArea[7][i] = new Pawn('B');
-        playArea[6][i] = new Pawn('B');
+       // playArea[6][i] = new Pawn('B');
     }        
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
@@ -86,12 +86,12 @@ void Board:: turn(){
     ogCol-=1;
     
 
-    cout << "You have selected " << playArea[ogCol][ogRow]-> getName() << " on team " << playArea[ogCol][ogRow]-> getTeam() << endl;
+    cout << "You have selected " << playArea[ogRow][ogCol]-> getName() << " on team " << playArea[ogRow][ogCol]-> getTeam() << endl;
     
 
     cout<< "Where would you like to move? Enter the x axis first (1-8)" << endl;
     while( x<1 || x>8){
-        cin >> x;
+        cin >> trow
     }
     x -=1;
     cout << "Enter the y axis now" << endl;
@@ -156,10 +156,10 @@ void Board:: display(){
 }
 void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
 {
-    Chesspiece* piece1 = playArea[ogCol][ogRow];
-    Chesspiece* piece2 = playArea[tCol][tRow];
+    Chesspiece* piece1 = playArea[ogRow][ogCol];
+    Chesspiece* piece2 = playArea[tRow][tCol];
     swap(piece1, piece2);
-    playArea[ogCol][ogRow] = piece1;
-    playArea[tCol][tRow] = piece2;
+    playArea[ogRow][ogCol] = piece1;
+    playArea[tRow][tCol] = piece2;
    
 }
