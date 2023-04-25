@@ -105,13 +105,18 @@ void Board:: turn(){
     //Check if occupied by opponent or team piece(return false, might have to turn this into a bool function or something, or make one)
     
     //Check if valid move based on piece
+    if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, x, y, playArea)){
+        swapPiece( x, y, ogRow, ogCol);
+        cout << "ran swap" << endl;
+        moves++;
+        swapTurn();
+    }
+    else{
+        cout << "Not valid move, please try again";
+    }
     // If empty, swap pieces
-    swapPiece( x, y, ogRow, ogCol);
-    cout << "ran swap" << endl;
     // If occupied by enemy, make enemy default constructor again (or destroy it somehow), and then swap
 
-    moves++;
-    swapTurn();
 
     
 }
