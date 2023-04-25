@@ -32,4 +32,10 @@ bool Rook::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playA
             }      
             
         }
+    else 
+    {
+        return false;
+    }
+
+      
 }
