@@ -1,6 +1,6 @@
 #include "Pawn.hpp"
 #include <iostream>
-
+using namespace std;
 Pawn::Pawn(char team): Chesspiece()
 {
     name = "Pawnn";
@@ -15,21 +15,29 @@ bool Pawn::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece*playAr
         {
             if ((ogRow + 2 == tRow) && ogCol == tCol)
             {
+                notMoved = false;
+                cout << "Moved double" << endl; 
                 return true;
+                
             }
         }
         if (ogRow + 1 == tRow && ogCol == tCol)
         {
+            notMoved = false;
+            cout << "Moved 1 up";
             return true;
         }
         if (ogCol + 1 == tRow && ogCol + 1 == tCol)
         {
+            notMoved = false;
+            cout << "Moved diagonally";
             return true;
         }
     }
     else
     {
+        cout << "black piece";
     }
-    notMoved = false;
+    cout << "No condition met";
     return false;
 }
