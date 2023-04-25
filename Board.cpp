@@ -14,7 +14,7 @@ Board:: Board(){
     {
         for (int j = 0; j < 8; j++)
         {
-            playArea[i][j] = new Chesspiece(); 
+            playArea[i][j] = nullptr; // empty address 
         }
     }
         // initialize all elements of the playArea array to nullptr
@@ -132,7 +132,7 @@ void Board:: display(){
         for (int col = 0; col <8; col++)
         {
             if(playArea[row][col] == nullptr){
-                cout << "nonam" << "\t\t";
+                cout << "noname" << "\t\t";
             }
             else{
             cout << playArea[row][col]-> getTeam() << playArea[row][col]-> getName() << "\t\t";
