@@ -69,35 +69,34 @@ void Board:: turn(){
         cout << "It is Black's turn" << endl; 
     }
     int ogRow = 0, ogCol = 0;
-    int x = 0,y = 0;
+    int tRow = 0, tCol = 0;
 
 
     cout<< "Which piece would you like to move? Enter the x axis first(1-8)" << endl;
-    while( ogRow<1 || ogRow>8){
-        cin >> ogRow;
-    }
-    ogRow-=1;
-    cout << "Enter the y axis now" << endl;
     while( ogCol<1 || ogCol>8){
         cin >> ogCol;
     }
     ogCol-=1;
-    
+    cout << "Enter the y axis now" << endl;
+    while( ogRow<1 || ogRow>8){
+        cin >> ogRow;
+    }
+    ogRow-=1;
 
-    cout << "You have selected " << playArea[ogCol][ogRow]-> getName() << " on team " << playArea[ogCol][ogRow]-> getTeam() << endl;
+    cout << "You have selected " << playArea[ogRow][ogCol]-> getName() << " on team " << playArea[ogRow][ogCol]-> getTeam() << endl;
     
 
     cout<< "Where would you like to move? Enter the x axis first (1-8)" << endl;
-    while( x<1 || x>8){
-        cin >> x;
+    while( tCol<1 || tCol>8){
+        cin >> tCol;
     }
-    x -=1;
+    tCol -=1;
     cout << "Enter the y axis now" << endl;
-    while( y<1 || y>8){
-        cin >> y;
+    while( tRow<1 || tRow>8){
+        cin >> tRow;
     }
-    y-=1;
-    cout<< "You have chosen " << x+1 << "," << y+1 << endl; 
+    tRow-=1;
+    cout<< "You have chosen " << tCol+1 << "," << tRow+1 << endl; 
 
     //Here would be code that moves stuff around, checks if king is moving into wrong spot, handles captures, etc-> 
     //I imagine this function will be changed a LOT from what it is now-> 
@@ -105,15 +104,21 @@ void Board:: turn(){
     //Check if occupied by opponent or team piece(return false, might have to turn this into a bool function or something, or make one)
     
     //Check if valid move based on piece
-    if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, x, y, playArea)){
-        swapPiece( x, y, ogRow, ogCol);
+    //USE THIS FOR QUICK DEBUGGING:
+    // swapPiece( tRow, tCol, ogRow, ogCol);
+    // swapTurn(); 
+
+    // MAIN MOVECHECKING CODE
+    if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
+        swapPiece( tRow, tCol, ogRow, ogCol);
         cout << "ran swap" << endl;
         moves++;
         swapTurn();
     }
     else{
-        cout << "Not valid move, please try again";
+        cout << "Not valid move, please try again"; 
     }
+
     // If empty, swap pieces
     // If occupied by enemy, make enemy default constructor again (or destroy it somehow), and then swap
 
@@ -154,10 +159,10 @@ void Board:: display(){
 }
 void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
 {
-    Chesspiece* piece1 = playArea[ogCol][ogRow];
-    Chesspiece* piece2 = playArea[tCol][tRow];
+    Chesspiece* piece1 = playArea[ogRow][ogCol];
+    Chesspiece* piece2 = playArea[tRow][tCol];
     swap(piece1, piece2);
-    playArea[ogCol][ogRow] = piece1;
-    playArea[tCol][tRow] = piece2;
+    playArea[tRow][tCol] = piece2;
+    playArea[ogRow][ogCol] = piece1;
    
 }
