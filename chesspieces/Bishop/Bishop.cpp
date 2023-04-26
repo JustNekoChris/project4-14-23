@@ -9,13 +9,16 @@ Bishop::Bishop(char team)
 
 bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playArea[][8])
 {
+    char team, other;
     if(playArea[ogCol][ogRow]->getTeam() == 'W')
     {
-        char team = 'W';
+        team = 'W'; 
+        other = 'B';
     }
     else
     {
-        char team = 'B';
+        team = 'B';
+        other = 'W';
     }
 
     if(abs(tRow - ogRow) == abs(tCol - ogCol))
@@ -28,7 +31,7 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             {
                 if(playArea[ogCol + i][ogRow + i] == nullptr)
                 {}
-                else if(playArea[ogCol + i][ogRow + i]->getTeam() == team)
+                else if(playArea[ogCol + i][ogRow + i]->getTeam() == team || (playArea[ogCol + i][ogRow + i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
@@ -42,7 +45,7 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             {
                 if(playArea[ogCol - i][ogRow + i] == nullptr)
                 {}
-                else if(playArea[ogCol - i][ogRow + i]->getTeam() == team)
+                else if(playArea[ogCol - i][ogRow + i]->getTeam() == team || (playArea[ogCol - i][ogRow + i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
@@ -56,7 +59,7 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             {
                 if(playArea[ogCol - i][ogRow - i] == nullptr)
                 {}
-                else if(playArea[ogCol - i][ogRow - i]->getTeam() == team)
+                else if(playArea[ogCol - i][ogRow - i]->getTeam() == team || (playArea[ogCol - i][ogRow - i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
@@ -70,7 +73,7 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             {
                 if(playArea[ogCol + i][ogRow - i] == nullptr)
                 {}
-                else if(playArea[ogCol + i][ogRow - i]->getTeam() == team)
+                else if(playArea[ogCol + i][ogRow - i]->getTeam() == team || (playArea[ogCol + i][ogRow - i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
