@@ -32,21 +32,23 @@ bool Pawn::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece*playAr
             cout << "Moved 1 up" << endl;
             return true;
         }
-        if (ogRow + 1 == tRow && ogCol + 1 == tCol && playArea[tRow][tCol]->getTeam() == 'B')
-        {
-            notMoved = false;
-            cout << "Moved diagonally (attack) upright" << endl;
-            delete playArea[tRow][tCol];
-            playArea[tRow][tCol] = nullptr;
-            return true;
-        }
-        if (ogRow + 1  == tRow && ogCol - 1 == tCol && playArea[tRow][tCol]->getTeam() == 'B')
-        {
-            notMoved = false;
-            cout << "Moved diagonally (attack) upleft" << endl;
-            delete playArea[tRow][tCol];
-            playArea[tRow][tCol] = nullptr;
-            return true;
+        if(playArea[tRow][tCol] != nullptr){
+            if (ogRow + 1 == tRow && ogCol + 1 == tCol && playArea[tRow][tCol]->getTeam() == 'B')
+            {
+                notMoved = false;
+                cout << "Moved diagonally (attack) upright" << endl;
+                delete playArea[tRow][tCol];
+                playArea[tRow][tCol] = nullptr;
+                return true;
+            }
+            if (ogRow + 1  == tRow && ogCol - 1 == tCol && playArea[tRow][tCol]->getTeam() == 'B')
+            {
+                notMoved = false;
+                cout << "Moved diagonally (attack) upleft" << endl;
+                delete playArea[tRow][tCol];
+                playArea[tRow][tCol] = nullptr;
+                return true;
+            }
         }
     }
     else
@@ -71,21 +73,23 @@ bool Pawn::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece*playAr
             cout << "Moved 1 down" << endl;
             return true;
         }
-        if (ogRow - 1 == tRow && ogCol - 1 == tCol && playArea[tRow][tCol]->getTeam() == 'W')
-        {
-            notMoved = false;
-            cout << "Moved diagonally (attack) downleft" << endl;
-            delete playArea[tRow][tCol];
-            playArea[tRow][tCol] = nullptr;
-            return true;
-        }
-        if (ogRow - 1  == tRow && ogCol + 1 == tCol && playArea[tRow][tCol]->getTeam() == 'W')
-        {
-            notMoved = false;
-            cout << "Moved diagonally (attack) downright" << endl;
-            delete playArea[tRow][tCol];
-            playArea[tRow][tCol] = nullptr;
-            return true;
+        if(playArea[tRow][tCol] != nullptr){
+            if (ogRow - 1 == tRow && ogCol - 1 == tCol && playArea[tRow][tCol]->getTeam() == 'W')
+            {
+                notMoved = false;
+                cout << "Moved diagonally (attack) downleft" << endl;
+                delete playArea[tRow][tCol];
+                playArea[tRow][tCol] = nullptr;
+                return true;
+            }
+            if (ogRow - 1  == tRow && ogCol + 1 == tCol && playArea[tRow][tCol]->getTeam() == 'W')
+            {
+                notMoved = false;
+                cout << "Moved diagonally (attack) downright" << endl;
+                delete playArea[tRow][tCol];
+                playArea[tRow][tCol] = nullptr;
+                return true;
+            }
         }
     }
     cout << "No condition met" << endl;

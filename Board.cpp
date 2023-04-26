@@ -3,6 +3,8 @@
 #include "chesspieces/Chesspiece.cpp"
 #include "chesspieces/Pawn/Pawn.cpp"
 #include "chesspieces/Pawn/Pawn.hpp"
+#include "chesspieces/Rook/Rook.hpp"
+#include "chesspieces/Rook/Rook.cpp"
 #include <iostream>
 using namespace std;
 
@@ -30,7 +32,7 @@ Board:: Board(){
 
     for (int i = 0; i < 8; i++)
     {
-        playArea[0][i] = new Pawn('W');
+        // playArea[0][i] = new Pawn('W');
         playArea[1][i] = new Pawn('W');
 
         // cout << "set first team" << endl;
@@ -44,7 +46,7 @@ Board:: Board(){
     }        
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
-    // playArea[0][0]-> setName("Rookk");
+    playArea[0][0] = new Rook('W');
     // playArea[7][0]-> setName("Rookk");
     // playArea[0][1]-> setName("Knite");
     // playArea[7][1]-> setName("Knite");
@@ -71,18 +73,26 @@ void Board:: turn(){
     int ogRow = 0, ogCol = 0;
     int tRow = 0, tCol = 0;
 
-
-    cout<< "Which piece would you like to move? Enter the x axis first(1-8)" << endl;
-    while( ogCol<1 || ogCol>8){
-        cin >> ogCol;
+    bool notPicked = true;
+    while(notPicked){
+        ogRow = 0, ogCol = 0; 
+        cout<< "Which piece would you like to move? Enter the x axis first(1-8)" << endl;
+        while( ogCol<1 || ogCol>8){
+            cin >> ogCol;
+        }
+        ogCol-=1;
+        cout << "Enter the y axis now" << endl;
+        while( ogRow<1 || ogRow>8){
+            cin >> ogRow;
+        }
+        ogRow-=1;
+        if(playArea[ogRow][ogCol] != nullptr){
+            notPicked = false; 
+        }
+        else{
+            cout << "Not a piece, pick again";
+        }
     }
-    ogCol-=1;
-    cout << "Enter the y axis now" << endl;
-    while( ogRow<1 || ogRow>8){
-        cin >> ogRow;
-    }
-    ogRow-=1;
-
     cout << "You have selected " << playArea[ogRow][ogCol]-> getName() << " on team " << playArea[ogRow][ogCol]-> getTeam() << endl;
     
 
@@ -113,6 +123,9 @@ void Board:: turn(){
         swapPiece( tRow, tCol, ogRow, ogCol);
         cout << "ran swap" << endl;
         moves++;
+        if(playArea[tRow][tCol]->getName() == "Pawnn"){
+            checkPawnPromotion(); 
+        }
         swapTurn();
     }
     else{
@@ -165,4 +178,68 @@ void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
     playArea[tRow][tCol] = piece2;
     playArea[ogRow][ogCol] = piece1;
    
+}
+void Board:: checkPawnPromotion(){
+    char user;
+    for (int i = 0; i < 8; i++)
+    {   if(playArea[7][i] != nullptr){
+            if(playArea[7][i]->getTeam() == 'W' && playArea[7][i]->getName() == "Pawnn"){
+                cout << "Your pawn can promote!" << endl;
+                cout << "What would you like to promote to: " << endl; 
+                cout << "Q - Queen, B - Bishop, K- Knight, R- Rook" << endl;
+                cin >> user;
+                user = toupper(user);
+                while(user != 'Q' && user!= 'B' && user != 'K' && user!= 'R'){
+                    cout << "Not valid, please try again" << endl;
+                    cin >> user;
+                }
+                delete playArea[7][i];
+                //TO DO: Implement these as the classes get finished.
+                if(user == 'Q'){
+                    playArea[7][i] = nullptr;
+                }
+                if(user == 'B'){
+                    playArea[7][i] = nullptr;
+                }
+                if(user == 'K'){
+                    playArea[7][i] = nullptr;
+                }
+                if(user == 'R'){
+                    playArea[7][i] = new Rook('W');
+                }
+            }
+        }
+    }
+    //This could be optimized very easily by passing in the team into a function after checking if it was white or black. 
+    for (int i = 0; i < 8; i++)
+    {   
+        if(playArea[0][i] != nullptr){
+            if(playArea[0][i]->getTeam() == 'B' && playArea[0][i]->getName() == "Pawnn"){
+                cout << "Your pawn can promote!" << endl;
+                cout << "What would you like to promote to: " << endl; 
+                cout << "Q - Queen, B - Bishop, K- Knight, R- Rook" << endl;
+                cin >> user;
+                user = toupper(user);
+                while(user != 'Q' && user!= 'B' && user != 'K' && user!= 'R'){
+                    cout << "Not valid, please try again" << endl;
+                    cin >> user;
+                }
+                delete playArea[0][i];
+                //TO DO: Implement these as the classes get finished.
+                if(user == 'Q'){
+                    playArea[0][i] = nullptr;
+                }
+                if(user == 'B'){
+                    playArea[0][i] = nullptr;
+                }
+                if(user == 'K'){
+                    playArea[0][i] = nullptr;
+                }
+                if(user == 'R'){
+                    playArea[0][i] = new Rook('B');
+                }
+            }
+        }
+    }
+    
 }

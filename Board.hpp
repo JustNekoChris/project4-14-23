@@ -9,6 +9,7 @@ class Board{
         void swapTurn();
         void swapPiece(int tRow, int tCol ,int ogRow,int ogCol);
         int getMoves()const{return moves;}
+        void checkPawnPromotion();
 
     protected:
         //NOT A ISSUE ANYMORE: This gets around the error of creating objects with purely virtual functions.
