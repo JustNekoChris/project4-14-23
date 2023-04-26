@@ -116,7 +116,7 @@ void Board:: turn(){
         swapTurn();
     }
     else{
-        cout << "Not valid move, please try again"; 
+        cout << "Not valid move, please try again" << endl; 
     }
 
     // If empty, swap pieces
