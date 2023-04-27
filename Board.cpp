@@ -3,6 +3,8 @@
 #include "chesspieces/Chesspiece.cpp"
 #include "chesspieces/Pawn/Pawn.cpp"
 #include "chesspieces/Pawn/Pawn.hpp"
+#include "chesspieces/Rook/Rook.hpp"
+#include "chesspieces/Rook/Rook.cpp"
 #include <iostream>
 using namespace std;
 
@@ -30,8 +32,8 @@ Board:: Board(){
 
     for (int i = 0; i < 8; i++)
     {
-        playArea[0][i] = new Pawn('W');
-        playArea[1][i] = new Pawn('W');
+       // playArea[0][i] = new Pawn('W');
+        playArea[1][i] = new Rook('W');
 
         // cout << "set first team" << endl;
     }
