@@ -5,6 +5,9 @@
 #include "chesspieces/Pawn/Pawn.hpp"
 #include "chesspieces/Rook/Rook.hpp"
 #include "chesspieces/Rook/Rook.cpp"
+#include "chesspieces/Bishop/Bishop.cpp"
+#include "chesspieces/Bishop/Bishop.hpp"
+
 #include <iostream>
 using namespace std;
 
@@ -41,12 +44,17 @@ Board:: Board(){
     // cout << "functions called";
     for (int i = 0; i < 8; i++)
     {
-        playArea[7][i] = new Pawn('B');
+        // playArea[7][i] = new Pawn('B');
         playArea[6][i] = new Pawn('B');
     }        
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
     playArea[0][0] = new Rook('W');
+
+    playArea[0][2] = new Bishop('W');
+    playArea[0][5] = new Bishop('W');
+    playArea[7][2] = new Bishop('B');
+    playArea[7][5] = new Bishop('B');
     // playArea[7][0]-> setName("Rookk");
     // playArea[0][1]-> setName("Knite");
     // playArea[7][1]-> setName("Knite");
@@ -120,6 +128,9 @@ void Board:: turn(){
 
     // MAIN MOVECHECKING CODE
     if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
+        //Destruction code
+        delete playArea[tRow][tCol];
+        playArea[tRow][tCol] = nullptr;
         swapPiece( tRow, tCol, ogRow, ogCol);
         cout << "ran swap" << endl;
         moves++;
@@ -161,7 +172,7 @@ void Board:: display(){
             cout << playArea[row][col]-> getTeam() << playArea[row][col]-> getName() << "\t\t";
             }
         }
-        cout << endl << endl;
+        cout << endl << endl << endl << endl;
     }
     cout << "    ";
     for (int i = 0; i < 8; i++)
