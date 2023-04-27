@@ -10,7 +10,7 @@ Bishop::Bishop(char team)
 bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playArea[][8])
 {
     char team, other;
-    if(playArea[ogCol][ogRow]->getTeam() == 'W')
+    if(playArea[ogRow][ogCol]->getTeam() == 'W')
     {
         team = 'W'; 
         other = 'B';
@@ -29,9 +29,9 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             int num = abs(difX);
             for(int i = 0; i < num; i++)
             {
-                if(playArea[ogCol + i][ogRow + i] == nullptr)
+                if(playArea[ogRow + i][ogCol + i] == nullptr)
                 {}
-                else if(playArea[ogCol + i][ogRow + i]->getTeam() == team || (playArea[ogCol + i][ogRow + i]->getTeam() == other && i != num))
+                else if(playArea[ogRow + i][ogCol + i]->getTeam() == team || (playArea[ogRow + i][ogCol + i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
@@ -43,9 +43,9 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             int num = abs(difX);
             for(int i = 0; i < num; i++)
             {
-                if(playArea[ogCol - i][ogRow + i] == nullptr)
+                if(playArea[ogRow - i][ogCol + i] == nullptr)
                 {}
-                else if(playArea[ogCol - i][ogRow + i]->getTeam() == team || (playArea[ogCol - i][ogRow + i]->getTeam() == other && i != num))
+                else if(playArea[ogRow - i][ogCol + i]->getTeam() == team || (playArea[ogRow - i][ogCol + i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
@@ -57,9 +57,9 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             int num = abs(difX);
             for(int i = 0; i < num; i++)
             {
-                if(playArea[ogCol - i][ogRow - i] == nullptr)
+                if(playArea[ogRow - i][ogCol - i] == nullptr)
                 {}
-                else if(playArea[ogCol - i][ogRow - i]->getTeam() == team || (playArea[ogCol - i][ogRow - i]->getTeam() == other && i != num))
+                else if(playArea[ogRow - i][ogCol - i]->getTeam() == team || (playArea[ogRow - i][ogCol - i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
@@ -71,9 +71,9 @@ bool Bishop::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* pla
             int num = abs(difX);
             for(int i = 0; i < num; i++)
             {
-                if(playArea[ogCol + i][ogRow - i] == nullptr)
+                if(playArea[ogRow + i][ogCol - i] == nullptr)
                 {}
-                else if(playArea[ogCol + i][ogRow - i]->getTeam() == team || (playArea[ogCol + i][ogRow - i]->getTeam() == other && i != num))
+                else if(playArea[ogRow + i][ogCol - i]->getTeam() == team || (playArea[ogRow + i][ogCol - i]->getTeam() == other && i != num))
                 {
                     return false;
                 }                
