@@ -18,6 +18,7 @@ class Chesspiece{
         virtual bool MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece* playArea[][8]){
             return false;
         }; 
+        virtual ~Chesspiece() {}
         struct Point;
 
 
