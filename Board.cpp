@@ -32,8 +32,8 @@ Board:: Board(){
 
     for (int i = 0; i < 8; i++)
     {
-        playArea[0][i] = new Pawn('W');
-        playArea[1][i] = new Pawn('W');
+        //playArea[0][i] = new Pawn('W');
+        playArea[1][i] = new Rook('W');
 
         // cout << "set first team" << endl;
     }
@@ -42,7 +42,7 @@ Board:: Board(){
     for (int i = 0; i < 8; i++)
     {
         playArea[7][i] = new Pawn('B');
-        playArea[6][i] = new Pawn('B');
+        playArea[6][i] = new Rook('B');
     }        
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
