@@ -3,19 +3,23 @@
 using namespace std;
 
 int main(){ 
-    cout << "hi " << endl;
-    // Chesspiece test;
-    // cout << test.getName() << endl; 
     Board game;
-    while(game.getMoves() < 50){
-        // cout << "predisplay" << endl;
+    while(game.getMoves() < 50 && (!(game.gameOver()))){
         game.display();
-        // cout << "post display" << endl; 
         game.turn();
-      
     }
-    
+    game.display();
+    if(game.blackAlive){
+        cout << "Congratulations, Black won in " << game.moves << " turns!" << endl;
+    }
+    else if(game.whiteAlive){
+        cout << "Congratulations, White won in " << game.moves << " turns!" << endl;
+    }
+    else if(game.moves >= 50){
+        cout << "Game ends because of the 50 move rule. Tie!" << endl;
+
+    }
     cout <<"Good Game!";
-    cout << "Testing out the source control that vscode has. Nice job team!";
+
     return 0; 
 }

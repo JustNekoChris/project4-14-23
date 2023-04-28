@@ -10,12 +10,15 @@ class Board{
         void swapPiece(int tRow, int tCol ,int ogRow,int ogCol);
         int getMoves()const{return moves;}
         void checkPawnPromotion();
+        bool gameOver();
 
     protected:
         //NOT A ISSUE ANYMORE: This gets around the error of creating objects with purely virtual functions.
 
         Chesspiece* playArea[8][8];
         bool whiteTurn;
+    public:
+        bool whiteAlive, blackAlive;
         int moves;
 };
 

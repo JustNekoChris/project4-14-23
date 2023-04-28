@@ -5,6 +5,11 @@
 #include "chesspieces/Pawn/Pawn.hpp"
 #include "chesspieces/Rook/Rook.hpp"
 #include "chesspieces/Rook/Rook.cpp"
+#include "chesspieces/Bishop/Bishop.cpp"
+#include "chesspieces/Bishop/Bishop.hpp"
+#include "chesspieces/King/King.hpp"
+#include "chesspieces/King/King.cpp"
+
 #include <iostream>
 using namespace std;
 
@@ -29,7 +34,8 @@ Board:: Board(){
     // cout << "array of null ptrs made" << endl;
     //Its likely all the following code will be changed except for the initializing team names-> The rest will probably have to use the consttructors
     //From each of the specific piece classes-> Likely a lot of changes in the futur-> 
-
+    playArea[0][4] = new King('W');
+    playArea[7][4] = new King('B'); 
     for (int i = 0; i < 8; i++)
     {
         //playArea[0][i] = new Pawn('W');
@@ -41,12 +47,18 @@ Board:: Board(){
     // cout << "functions called";
     for (int i = 0; i < 8; i++)
     {
-        playArea[7][i] = new Pawn('B');
-        playArea[6][i] = new Rook('B');
+        // playArea[7][i] = new Pawn('B');
+        playArea[6][i] = new Pawn('B');
     }        
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
     playArea[0][0] = new Rook('W');
+
+    playArea[0][2] = new Bishop('W');
+    playArea[0][5] = new Bishop('W');
+    playArea[7][2] = new Bishop('B');
+    playArea[7][5] = new Bishop('B');
+    
     // playArea[7][0]-> setName("Rookk");
     // playArea[0][1]-> setName("Knite");
     // playArea[7][1]-> setName("Knite");
@@ -62,6 +74,8 @@ Board:: Board(){
     // playArea[7][6]-> setName("Knite");
     // playArea[0][7]-> setName("Rookk");
     // playArea[7][7]-> setName("Rookk"); 
+    whiteAlive = true;
+    blackAlive = true;
 }
 void Board:: turn(){
     if(whiteTurn){
@@ -90,7 +104,7 @@ void Board:: turn(){
             notPicked = false; 
         }
         else{
-            cout << "Not a piece, pick again";
+            cout << "Not a piece, pick again" << endl;
         }
     }
     cout << "You have selected " << playArea[ogRow][ogCol]-> getName() << " on team " << playArea[ogRow][ogCol]-> getTeam() << endl;
@@ -120,6 +134,9 @@ void Board:: turn(){
 
     // MAIN MOVECHECKING CODE
     if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
+        //Destruction code
+        delete playArea[tRow][tCol];
+        playArea[tRow][tCol] = nullptr;
         swapPiece( tRow, tCol, ogRow, ogCol);
         cout << "ran swap" << endl;
         moves++;
@@ -161,7 +178,7 @@ void Board:: display(){
             cout << playArea[row][col]-> getTeam() << playArea[row][col]-> getName() << "\t\t";
             }
         }
-        cout << endl << endl;
+        cout << endl << endl << endl << endl;
     }
     cout << "    ";
     for (int i = 0; i < 8; i++)
@@ -199,7 +216,7 @@ void Board:: checkPawnPromotion(){
                     playArea[7][i] = nullptr;
                 }
                 if(user == 'B'){
-                    playArea[7][i] = nullptr;
+                    playArea[7][i] = new Bishop('W');
                 }
                 if(user == 'K'){
                     playArea[7][i] = nullptr;
@@ -230,7 +247,7 @@ void Board:: checkPawnPromotion(){
                     playArea[0][i] = nullptr;
                 }
                 if(user == 'B'){
-                    playArea[0][i] = nullptr;
+                    playArea[0][i] = new Bishop('B');
                 }
                 if(user == 'K'){
                     playArea[0][i] = nullptr;
@@ -242,4 +259,31 @@ void Board:: checkPawnPromotion(){
         }
     }
     
+}
+bool Board:: gameOver(){
+    bool tempWAlive = false, tempBAlive = false;
+    for (int row = 0; row < 8; row++)
+    {
+        for (int col = 0; col < 8; col++)
+        {
+            if(playArea[row][col] != nullptr){
+                if(playArea[row][col]->getName() == "Kingg"){
+                    if(playArea[row][col]->getTeam() == 'W'){
+                        tempWAlive = true;
+                    }
+                    else if(playArea[row][col]->getTeam() == 'B'){
+                        tempBAlive = true;
+                    }
+                }
+            }
+        }
+        
+    }
+
+    whiteAlive = tempWAlive;
+    blackAlive = tempBAlive;
+    if(whiteAlive == false || blackAlive == false){
+        return true;
+    }
+    return false; 
 }
