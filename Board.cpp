@@ -53,6 +53,10 @@ Board:: Board(){
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
     playArea[0][0] = new Rook('W');
+    playArea[0][7] = new Rook('W');
+    playArea[7][0] = new Rook('B');
+    playArea[7][7] = new Rook('B');
+    
 
     playArea[0][2] = new Bishop('W');
     playArea[0][5] = new Bishop('W');
