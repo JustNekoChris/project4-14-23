@@ -9,6 +9,8 @@
 #include "chesspieces/Bishop/Bishop.hpp"
 #include "chesspieces/King/King.hpp"
 #include "chesspieces/King/King.cpp"
+#include "chesspieces/Queen/Queen.hpp"
+#include "chesspieces/Queen/Queen.cpp"
 
 #include <iostream>
 using namespace std;
@@ -62,6 +64,9 @@ Board:: Board(){
     playArea[0][5] = new Bishop('W');
     playArea[7][2] = new Bishop('B');
     playArea[7][5] = new Bishop('B');
+
+    playArea[0][3] = new Queen('W');
+    playArea[7][3] = new Queen('B');
     
     // playArea[7][0]-> setName("Rookk");
     // playArea[0][1]-> setName("Knite");
