@@ -1,5 +1,8 @@
 all: compile link
+
 compile:
-	g++ -Isrc/include -c main.cpp
+	g++ -Isrc/include -c main.cpp Board.cpp
+
 link:
-	g++ main.o -o sfml-app -L<sfml-install-path>/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ main.o Board.o -o main -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+

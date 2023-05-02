@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Board.hpp"
 #include <SFML/Graphics.hpp>
+
 using namespace std;
 
 // int main(){ 
@@ -27,23 +28,41 @@ using namespace std;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
+    Board game;
+    //Window
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Minimalistic Chess", sf:: Style:: Default);
+    sf::Event event;
+    //Game Loop
     while (window.isOpen())
     {
-        sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            switch(event.type){
+            case sf::Event::Closed:
                 window.close();
+                break; 
+            case sf::Event::MouseButtonPressed:
+                break;
+                
+            }
+            
         }
+        if (game.getMoves() < 50 && (!(game.gameOver()))){
+            game.turn();
+        }
+        game.display();
+        if(game.blackAlive && game.gameOver()){
+            cout << "Congratulations, Black won in " << game.moves << " turns!" << endl;
+        }
+        else if(game.whiteAlive && game.gameOver()){
+            cout << "Congratulations, White won in " << game.moves << " turns!" << endl;
+        }
+        else if(game.moves >= 50 && game.gameOver()){
+            cout << "Game ends because of the 50 move rule. Tie!" << endl;
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+            window.clear();
+            window.display();
+        }
     }
-
     return 0;
 }
