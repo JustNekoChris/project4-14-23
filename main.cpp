@@ -35,6 +35,7 @@ int main()
     //Game Loop
     while (window.isOpen())
     {
+        //Check user Input
         while (window.pollEvent(event))
         {
             switch(event.type){
@@ -47,8 +48,9 @@ int main()
             }
             
         }
+        //Game Updates 
         if (game.getMoves() < 50 && (!(game.gameOver()))){
-            game.turn();
+            // game.turn();
         }
         game.display();
         if(game.blackAlive && game.gameOver()){
@@ -60,9 +62,11 @@ int main()
         else if(game.moves >= 50 && game.gameOver()){
             cout << "Game ends because of the 50 move rule. Tie!" << endl;
 
-            window.clear();
-            window.display();
         }
+
+        //Render window
+        window.clear();
+        window.display();
     }
     return 0;
 }
