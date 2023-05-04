@@ -9,9 +9,10 @@
 #include "chesspieces/Bishop/Bishop.hpp"
 #include "chesspieces/King/King.hpp"
 #include "chesspieces/King/King.cpp"
+#include "chesspieces/Knight/Knight.hpp"
+#include "chesspieces/Knight/Knight.cpp"
 #include "chesspieces/Queen/Queen.hpp"
 #include "chesspieces/Queen/Queen.cpp"
-
 #include <iostream>
 using namespace std;
 
@@ -54,16 +55,24 @@ Board:: Board(){
     }        
     // cout << "created black pawns";
     //Like this will probably for sure be gone (but keeping the names all 5 letters i think is a good touch);
+
+    //Rook
     playArea[0][0] = new Rook('W');
     playArea[0][7] = new Rook('W');
     playArea[7][0] = new Rook('B');
     playArea[7][7] = new Rook('B');
-    
 
+    // Bishop
     playArea[0][2] = new Bishop('W');
     playArea[0][5] = new Bishop('W');
     playArea[7][2] = new Bishop('B');
     playArea[7][5] = new Bishop('B');
+
+    // Knight
+    playArea[0][1] = new Knight('W');
+    playArea[0][6] = new Knight('W');
+    playArea[7][1] = new Knight('B');
+    playArea[7][6] = new Knight('B');
 
     playArea[0][3] = new Queen('W');
     playArea[7][3] = new Queen('B');
