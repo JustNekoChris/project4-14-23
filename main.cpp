@@ -6,7 +6,11 @@ int main(){
     Board game;
     while(game.getMoves() < 50 && (!(game.gameOver()))){
         game.display();
-        game.turn();
+        if(game.turn() == 69)
+        {
+            game.deleter();
+            return 0;
+        }
     }
     game.display();
     if(game.blackAlive){

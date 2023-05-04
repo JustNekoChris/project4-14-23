@@ -11,6 +11,8 @@
 #include "chesspieces/King/King.cpp"
 #include "chesspieces/Knight/Knight.hpp"
 #include "chesspieces/Knight/Knight.cpp"
+#include "chesspieces/Queen/Queen.hpp"
+#include "chesspieces/Queen/Queen.cpp"
 #include <iostream>
 using namespace std;
 
@@ -72,6 +74,9 @@ Board:: Board(){
     playArea[7][1] = new Knight('B');
     playArea[7][6] = new Knight('B');
 
+    playArea[0][3] = new Queen('W');
+    playArea[7][3] = new Queen('B');
+    
     // playArea[7][0]-> setName("Rookk");
     // playArea[0][1]-> setName("Knite");
     // playArea[7][1]-> setName("Knite");
@@ -90,7 +95,7 @@ Board:: Board(){
     whiteAlive = true;
     blackAlive = true;
 }
-void Board:: turn(){
+int Board:: turn(){
     if(whiteTurn){
         cout <<"It is White's turn" << endl;
     }
@@ -104,19 +109,24 @@ void Board:: turn(){
     while(notPicked){
         ogRow = 0, ogCol = 0; 
         cout<< "Which piece would you like to move? Enter the x axis first(1-8)" << endl;
-        while( ogCol<1 || ogCol>8){
+        while( (ogCol<1 || ogCol>8) && ogCol != 69){
             cin >> ogCol;
         }
         ogCol-=1;
         cout << "Enter the y axis now" << endl;
-        while( ogRow<1 || ogRow>8){
+        while( ogRow<1 || ogRow>8 && ogRow != 69){
             cin >> ogRow;
         }
         ogRow-=1;
-        if(playArea[ogRow][ogCol] != nullptr){
+        if (ogRow == 68 || ogCol == 68) // will delete Board if written 69
+        {
+            return 69;
+        }
+        else if(playArea[ogRow][ogCol] != nullptr){
             notPicked = false; 
         }
-        else{
+        else
+        {
             cout << "Not a piece, pick again" << endl;
         }
     }
@@ -165,8 +175,7 @@ void Board:: turn(){
     // If empty, swap pieces
     // If occupied by enemy, make enemy default constructor again (or destroy it somehow), and then swap
 
-
-    
+    return 0;
 }
 void Board:: swapTurn(){
     //Might not change much either
@@ -299,4 +308,24 @@ bool Board:: gameOver(){
         return true;
     }
     return false; 
+}
+
+void Board::deleter()
+{
+    for(int x = 0; x < 8; x++)
+    {
+        for(int y = 0; y < 8; y++)
+        {
+            if (playArea[y][x] == nullptr)
+            {
+                /* code */
+            }
+            else
+            {
+                delete playArea[y][x];
+            }
+            
+        }
+    }
+    cout << "Deleted board :]" << endl;
 }
