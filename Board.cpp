@@ -77,21 +77,7 @@ Board:: Board(){
     playArea[0][3] = new Queen('W');
     playArea[7][3] = new Queen('B');
     
-    // playArea[7][0]-> setName("Rookk");
-    // playArea[0][1]-> setName("Knite");
-    // playArea[7][1]-> setName("Knite");
-    // playArea[0][2]-> setName("Bihop");
-    // playArea[7][2]-> setName("Bihop");
-    // playArea[0][3]-> setName("Queen");
-    // playArea[7][3]-> setName("Queen");
-    // playArea[0][4]-> setName("Kingg");
-    // playArea[7][4]-> setName("Kingg");
-    // playArea[0][5]-> setName("Bihop");
-    // playArea[7][5]-> setName("Bihop");
-    // playArea[0][6]-> setName("Knite");
-    // playArea[7][6]-> setName("Knite");
-    // playArea[0][7]-> setName("Rookk");
-    // playArea[7][7]-> setName("Rookk"); 
+
     whiteAlive = true;
     blackAlive = true;
 }
@@ -329,3 +315,5 @@ void Board::deleter()
     }
     cout << "Deleted board :]" << endl;
 }
+// std::string Board::getPiece(int row, int col) const {
+// }

@@ -12,6 +12,11 @@ class Board{
         void checkPawnPromotion();
         bool gameOver();
         void deleter();
+        bool getTurn()const{return whiteTurn;}
+        Chesspiece* getPlayAreaElement(int row, int col) const{
+            return playArea[row][col];
+        }
+
 
     protected:
         //NOT A ISSUE ANYMORE: This gets around the error of creating objects with purely virtual functions.
