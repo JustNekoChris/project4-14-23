@@ -34,6 +34,9 @@ int main()
     text.setStyle(sf::Text::Bold);
     text.setPosition(50, 25);
 
+
+
+
     //Background
     sf::RectangleShape rect(sf::Vector2f(1000, 1000)); // create a rectangle shape with dimensions 1000x1000
     sf::Color color1(64, 64, 64); // dark grey color
