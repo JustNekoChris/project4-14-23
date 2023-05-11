@@ -42,7 +42,7 @@ Board:: Board(){
     for (int i = 0; i < 8; i++)
     {
         //playArea[0][i] = new Pawn('W');
-        playArea[1][i] = new Rook('W');
+        playArea[1][i] = new Pawn('W');
 
         // cout << "set first team" << endl;
     }

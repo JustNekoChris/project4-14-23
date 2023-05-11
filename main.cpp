@@ -26,7 +26,16 @@ using namespace std;
 
 //     return 0; 
 // }
+    vector<sf::Sprite> w_bishops;
+    vector<sf::Sprite> w_knights;
+    vector <sf::Sprite> w_rooks;
+    vector <sf::Sprite> w_pawns;
 
+    vector<sf::Sprite> b_bishops;
+    vector<sf::Sprite> b_knights;
+    vector <sf::Sprite> b_rooks;
+    vector<sf::Sprite> b_pawns;
+void createsprite(Board game);
 int main()
 {
     Board game;
@@ -71,48 +80,99 @@ int main()
         system("pause");
     }
     pieces_texture.setSmooth(true);
-    sf::Sprite w_king;
-    w_king.setTexture(pieces_texture);
-    w_king.setTextureRect(sf::IntRect(0,0, 128,128));
-    w_king.setScale(0.78125f, 0.78125f);
-    w_king.setPosition(100,100);
-    sf::Sprite w_queen;
-    w_queen.setTexture(pieces_texture);
-    w_queen.setTextureRect(sf::IntRect(120,0,128,128));
-    w_queen.setScale(0.78125f, 0.78125f);
-    w_queen.setPosition(200, 100);
-    vector<sf::Sprite> w_bishops;
     for (int i = 0; i < 2; i++)
     {
         sf:: Sprite bishop_temp;
         bishop_temp.setTexture(pieces_texture);
         bishop_temp.setTextureRect(sf::IntRect(256,0,128,128));
         bishop_temp.setScale(0.78125f, 0.78125f);
-        w_bishops.push_back
+        w_bishops.push_back(bishop_temp);
 
     }
-    vector<sf::Sprite> w_knights;
     for(int i = 0; i < 2; i++){
         sf:: Sprite tempKnight;
         tempKnight.setTexture(pieces_texture);
         tempKnight.setTextureRect(sf::IntRect(384,0,128,128));
         tempKnight.setScale(0.78125f, 0.78125f);
-
+        w_knights.push_back(tempKnight);
     }
-    sf::Sprite w_rooks;
     for (int i = 0; i < 2; i++)
     {
         sf:: Sprite temprook;
         temprook.setTexture(pieces_texture);
         temprook.setTextureRect(sf::IntRect(512,0,128,128));
         temprook.setScale(0.78125f, 0.78125f);
+        w_rooks.push_back(temprook); 
+    }
+    for (int i = 0; i < 8; i++)
+    {
+        sf:: Sprite temppawn;
+        temppawn.setTexture(pieces_texture);
+        temppawn.setTextureRect(sf::IntRect(640,0,128,128));
+        temppawn.setScale(0.78125f, 0.78125f);
+        w_pawns.push_back(temppawn);
+        
+    }
+
+    //Black pieces
+    for (int i = 0; i < 2; i++)
+    {
+        sf:: Sprite bishop_temp;
+        bishop_temp.setTexture(pieces_texture);
+        bishop_temp.setTextureRect(sf::IntRect(256,128,128,128));
+        bishop_temp.setScale(0.78125f, 0.78125f);
+        b_bishops.push_back(bishop_temp);
+
+    }
+    for(int i = 0; i < 2; i++){
+        sf:: Sprite tempKnight;
+        tempKnight.setTexture(pieces_texture);
+        tempKnight.setTextureRect(sf::IntRect(384,128,128,128));
+        tempKnight.setScale(0.78125f, 0.78125f);
+        b_knights.push_back(tempKnight);
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        sf:: Sprite temprook;
+        temprook.setTexture(pieces_texture);
+        temprook.setTextureRect(sf::IntRect(512,128,128,128));
+        temprook.setScale(0.78125f, 0.78125f);
+        b_rooks.push_back(temprook); 
     }
     
-    sf::Sprite w_pawn;
-    w_pawn.setTexture(pieces_texture);
-    w_pawn.setTextureRect(sf::IntRect(640,0,128,128));
-    w_pawn.setScale(0.78125f, 0.78125f);
-    w_pawn.setPosition(600, 100);
+    for (int i = 0; i < 8; i++)
+    {
+        sf:: Sprite temppawn;
+        temppawn.setTexture(pieces_texture);
+        temppawn.setTextureRect(sf::IntRect(640,128,128,128));
+        temppawn.setScale(0.78125f, 0.78125f);
+        b_pawns.push_back(temppawn); 
+    }
+    if(w_pawns.empty()){
+        system("pause");
+    }
+
+    sf::Sprite w_king;
+    w_king.setTexture(pieces_texture);
+    w_king.setTextureRect(sf::IntRect(0,0, 128,128));
+    w_king.setScale(0.78125f, 0.78125f);
+    w_king.setPosition(500,800);
+    sf::Sprite w_queen;
+    w_queen.setTexture(pieces_texture);
+    w_queen.setTextureRect(sf::IntRect(128,0,128,128));
+    w_queen.setScale(0.78125f, 0.78125f);
+    w_queen.setPosition(400,800);
+    sf::Sprite b_king;
+    b_king.setTexture(pieces_texture);
+    b_king.setTextureRect(sf::IntRect(0,128, 128,128));
+    b_king.setScale(0.78125f, 0.78125f);
+    b_king.setPosition(500, 100);
+    sf::Sprite b_queen;
+    b_queen.setTexture(pieces_texture);
+    b_queen.setTextureRect(sf::IntRect(128,128,128,128));
+    b_queen.setScale(0.78125f, 0.78125f);
+    b_queen.setPosition(400,100);
+    
 
 
 
@@ -162,17 +222,18 @@ int main()
         }
 
             //Render window
-
+        
         window.clear();
         window.draw(rect);
         window.draw(board_sprite);
         window.draw(text);
         window.draw(w_king);
         window.draw(w_queen);
-        window.draw(w_bishop);
-        window.draw(w_knight);
-        window.draw(w_rook);
-        window.draw(w_pawn);
+        window.draw(b_king);
+        window.draw(b_queen);
+
+        w_pawns[0].setPosition(700,700);
+        window.draw(w_pawns[0]);
         window.display();
 
     }
@@ -189,8 +250,9 @@ void createsprite(Board game){
         for (int col = 0; col < 8; col++)
         {
             Chesspiece* temp = game.getPlayAreaElement(row, col);
-            if(){
-                w_pawn.setPosition(((col+1) * 100) , ((row+1) * 100));
+            if(temp->getName() == "Pawnn" && temp->getTeam() == 'W'){
+                w_pawns[wpawnc].setPosition(((col+1) * 100) , ((row+1) * 100));
+                wpawnc +=1;
             }
         }
         
