@@ -81,6 +81,8 @@ Board:: Board(){
     whiteAlive = true;
     blackAlive = true;
 }
+
+
 int Board:: turn(){
     if(whiteTurn){
         cout <<"It is White's turn" << endl;
@@ -162,6 +164,24 @@ int Board:: turn(){
     // If occupied by enemy, make enemy default constructor again (or destroy it somehow), and then swap
 
     return 0;
+}
+
+bool Board:: sfmlturn(int tRow, int tCol, int ogRow, int ogCol){
+    if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
+        //Destruction code
+        delete playArea[tRow][tCol];
+        playArea[tRow][tCol] = nullptr;
+        swapPiece( tRow, tCol, ogRow, ogCol);
+        moves++;
+        if(playArea[tRow][tCol]->getName() == "Pawnn"){
+            checkPawnPromotion(); 
+        }
+        swapTurn();
+        return true; 
+    }
+    else{
+        return false;
+    }
 }
 void Board:: swapTurn(){
     //Might not change much either

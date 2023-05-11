@@ -33,21 +33,30 @@ int main()
     text.setFillColor(sf::Color::White);
     text.setStyle(sf::Text::Bold);
     text.setPosition(50, 25);
+
     //Background
     sf::RectangleShape rect(sf::Vector2f(1000, 1000)); // create a rectangle shape with dimensions 1000x1000
     sf::Color color1(64, 64, 64); // dark grey color
     sf:: Color black(0,0,0);
     sf:: Color white(255,255,255);
-    
     sf::Color color2(192, 192, 192); // dark white color
     rect.setFillColor(color1);
+
+    //User selection sprite
+    bool selection = false;
+    sf::RectangleShape selectBox;
+    selectBox.setSize(sf::Vector2f(100, 100));
+    selectBox.setFillColor(sf::Color(128, 128, 128, 128));
+    bool badMove = false; 
+    sf::Color redFilter(120, 25, 35); 
+
     //Chessboard sprite
-    bool turn;
     sf::Texture background; 
     if(!background.loadFromFile("src/images/Chess_Board.png")){
         std:: cout << "Load failed" << endl;
         system("pause");
     }
+    
     //Moving chessboard to the proper spot;
     sf::Sprite board_sprite;
     board_sprite.setPosition(100,100);
@@ -60,8 +69,7 @@ int main()
         system("pause");
     }
     pieces_texture.setSmooth(true);
-    for (int i = 0; i < 2; i++)
-    {
+    for (int i = 0; i < 2; i++){
         sf:: Sprite bishop_temp;
         bishop_temp.setTexture(pieces_texture);
         bishop_temp.setTextureRect(sf::IntRect(256,0,128,128));
@@ -169,16 +177,27 @@ int main()
                     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 
                     // Check if the mouse click is within a certain area col, row.
-                    // Chesspiece* lol = game.getPlayAreaElement(0,0);
-                    // if(lol != nullptr){
-                    //     cout << "the pointer wasn't empty";
-                    //     system("pause");
-                    // }
 
                     if(click2coord(game, mousePosition.x, mousePosition.y)){
-                        system("pause");
+                        //The bool here checks if its an initial move, this will run on the first click to add a highlighted box to the code
+                        int coordx = mousePosition.x/100 * 100;
+                        int coordy = mousePosition.y/100 * 100;
+                        selectBox.setPosition(coordx, coordy);
+                        selection = true; 
                     }
-                    //1, 8  
+                    else{ //this condition should mean that a 2nd option was made, and now the two coordinates are saved
+                        selection = false;
+                        if(game.sfmlturn(tRow, tCol, ogRow, ogCol)){
+                            badMove = false;
+                        }
+                        else{
+                            rect.setFillColor(redFilter);
+                        }
+                        tRow = -1;
+                        tCol = -1;
+                        ogRow = -1;
+                        ogCol = -1;
+                    }
 
                 }
                 break;
@@ -188,15 +207,17 @@ int main()
 
             
         }
-        if(game.getTurn()){
-            // turn = false;
-            rect.setFillColor(color2);
-            text.setFillColor(black);
-        }
-        else{
-            rect.setFillColor(color1);
-            text.setFillColor(white);
-            // turn = true; 
+        if(!badMove){
+            if(game.getTurn()){
+                // turn = false;
+                rect.setFillColor(color2);
+                text.setFillColor(black);
+            }
+            else{
+                rect.setFillColor(color1);
+                text.setFillColor(white);
+                // turn = true; 
+            }
         }
         //Game Updates 
         if (game.getMoves() < 50 && (!(game.gameOver()))){
@@ -291,8 +312,9 @@ int main()
                 }
             }
         }
-        window.draw(b_king);
-        window.draw(b_queen);
+        if(selection){
+            window.draw(selectBox);
+        } 
 
         window.display();
 

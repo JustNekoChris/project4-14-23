@@ -5,6 +5,7 @@ class Board{
     public:
         Board();
         int turn();
+        bool sfmlturn(int tRow, int tCol, int ogRow, int ogCol);
         void display();
         void swapTurn();
         void swapPiece(int tRow, int tCol ,int ogRow,int ogCol);
