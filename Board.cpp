@@ -167,21 +167,22 @@ int Board:: turn(){
 }
 
 bool Board:: sfmlturn(int tRow, int tCol, int ogRow, int ogCol){
-    if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
-        //Destruction code
-        delete playArea[tRow][tCol];
-        playArea[tRow][tCol] = nullptr;
-        swapPiece( tRow, tCol, ogRow, ogCol);
-        moves++;
-        if(playArea[tRow][tCol]->getName() == "Pawnn"){
-            checkPawnPromotion(); 
+    if((whiteTurn && playArea[ogRow][ogCol]->getTeam() == 'W') || 
+    !whiteTurn && playArea[ogRow][ogCol]->getTeam() == 'B'){
+        if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
+            //Destruction code
+            delete playArea[tRow][tCol];
+            playArea[tRow][tCol] = nullptr;
+            swapPiece( tRow, tCol, ogRow, ogCol);
+            moves++;
+            if(playArea[tRow][tCol]->getName() == "Pawnn"){
+                // checkPawnPromotion(); 
+            }
+            swapTurn();
+            return true; 
         }
-        swapTurn();
-        return true; 
     }
-    else{
-        return false;
-    }
+    return false;
 }
 void Board:: swapTurn(){
     //Might not change much either
@@ -229,28 +230,9 @@ void Board:: checkPawnPromotion(){
     for (int i = 0; i < 8; i++)
     {   if(playArea[7][i] != nullptr){
             if(playArea[7][i]->getTeam() == 'W' && playArea[7][i]->getName() == "Pawnn"){
-                cout << "Your pawn can promote!" << endl;
-                cout << "What would you like to promote to: " << endl; 
-                cout << "Q - Queen, B - Bishop, K- Knight, R- Rook" << endl;
-                cin >> user;
-                user = toupper(user);
-                while(user != 'Q' && user!= 'B' && user != 'K' && user!= 'R'){
-                    cout << "Not valid, please try again" << endl;
-                    cin >> user;
-                }
                 delete playArea[7][i];
-                //TO DO: Implement these as the classes get finished.
                 if(user == 'Q'){
-                    playArea[7][i] = nullptr;
-                }
-                if(user == 'B'){
-                    playArea[7][i] = new Bishop('W');
-                }
-                if(user == 'K'){
-                    playArea[7][i] = nullptr;
-                }
-                if(user == 'R'){
-                    playArea[7][i] = new Rook('W');
+                    playArea[7][i] = new Queen('W');
                 }
             }
         }
@@ -260,28 +242,11 @@ void Board:: checkPawnPromotion(){
     {   
         if(playArea[0][i] != nullptr){
             if(playArea[0][i]->getTeam() == 'B' && playArea[0][i]->getName() == "Pawnn"){
-                cout << "Your pawn can promote!" << endl;
-                cout << "What would you like to promote to: " << endl; 
-                cout << "Q - Queen, B - Bishop, K- Knight, R- Rook" << endl;
-                cin >> user;
-                user = toupper(user);
-                while(user != 'Q' && user!= 'B' && user != 'K' && user!= 'R'){
-                    cout << "Not valid, please try again" << endl;
-                    cin >> user;
-                }
+            
                 delete playArea[0][i];
-                //TO DO: Implement these as the classes get finished.
+                
                 if(user == 'Q'){
-                    playArea[0][i] = nullptr;
-                }
-                if(user == 'B'){
-                    playArea[0][i] = new Bishop('B');
-                }
-                if(user == 'K'){
-                    playArea[0][i] = nullptr;
-                }
-                if(user == 'R'){
-                    playArea[0][i] = new Rook('B');
+                    playArea[0][i] = new Queen('B');
                 }
             }
         }

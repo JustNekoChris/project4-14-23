@@ -47,8 +47,6 @@ int main()
     sf::RectangleShape selectBox;
     selectBox.setSize(sf::Vector2f(100, 100));
     selectBox.setFillColor(sf::Color(128, 128, 128, 128));
-    bool badMove = false; 
-    sf::Color redFilter(120, 25, 35); 
 
     //Chessboard sprite
     sf::Texture background; 
@@ -188,10 +186,6 @@ int main()
                     else{ //this condition should mean that a 2nd option was made, and now the two coordinates are saved
                         selection = false;
                         if(game.sfmlturn(tRow, tCol, ogRow, ogCol)){
-                            badMove = false;
-                        }
-                        else{
-                            rect.setFillColor(redFilter);
                         }
                         tRow = -1;
                         tCol = -1;
@@ -207,17 +201,15 @@ int main()
 
             
         }
-        if(!badMove){
-            if(game.getTurn()){
-                // turn = false;
-                rect.setFillColor(color2);
-                text.setFillColor(black);
-            }
-            else{
-                rect.setFillColor(color1);
-                text.setFillColor(white);
-                // turn = true; 
-            }
+        if(game.getTurn()){
+            // turn = false;
+            rect.setFillColor(color2);
+            text.setFillColor(black);
+        }
+        else{
+            rect.setFillColor(color1);
+            text.setFillColor(white);
+            // turn = true; 
         }
         //Game Updates 
         if (game.getMoves() < 50 && (!(game.gameOver()))){
@@ -281,7 +273,7 @@ int main()
                     }
 
                     //Black pieces
-                    if(temp->getName() == "Pawnn" && temp->getTeam() == 'B'){
+                    else if(temp->getName() == "Pawnn" && temp->getTeam() == 'B'){
                         b_pawns[bpawnc].setPosition(((col+1) * 100) , ((8-row) * 100));
                         bpawnc +=1;
                         window.draw(b_pawns[bpawnc-1]);
@@ -336,7 +328,8 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
                     ogCol = col - 1;
                     return true;
                 }
-            } else if (tRow == -1 && tCol == -1) {
+            }
+            else if (tRow == -1 && tCol == -1) {
                 tRow = 0;
                 tCol = col - 1;
             }
@@ -352,7 +345,8 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
                     ogCol = col - 1;
                     return true;
                 }
-            } else if (tRow == -1 && tCol == -1) {
+            }
+            else if (tRow == -1 && tCol == -1) {
                 tRow = 1;
                 tCol = col-1;
             }
@@ -368,7 +362,8 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
                     ogCol = col-1;
                     return true;
                 }
-            } else if (tRow == -1 && tCol == -1) {
+            }
+            else if (tRow == -1 && tCol == -1) {
                 tRow = 2;
                 tCol = col-1;
             }
@@ -384,7 +379,8 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
                     ogCol = col-1;
                     return true;
                 }
-            } else if (tRow == -1 && tCol == -1) {
+            }
+            else if (tRow == -1 && tCol == -1) {
                 tRow = 3;
                 tCol = col-1;
             }
@@ -400,7 +396,8 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
                     ogCol = col-1;
                     return true;
                 }
-            } else if (tRow == -1 && tCol == -1) {
+            } 
+            else if (tRow == -1 && tCol == -1) {
                 tRow = 4;
                 tCol = col-1;
             }
@@ -416,7 +413,8 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
                     ogCol = col;
                     return true;
                 }
-            } else if (tRow == -1 && tCol == -1) {
+            } 
+            else if (tRow == -1 && tCol == -1) {
                 tRow = 5;
                 tCol = col-1;
             }
