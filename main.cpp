@@ -35,7 +35,6 @@ using namespace std;
     vector<sf::Sprite> b_knights;
     vector <sf::Sprite> b_rooks;
     vector<sf::Sprite> b_pawns;
-void createsprite(Board game);
 int main()
 {
     Board game;
@@ -227,35 +226,82 @@ int main()
         window.draw(rect);
         window.draw(board_sprite);
         window.draw(text);
-        window.draw(w_king);
-        window.draw(w_queen);
+        int wpawnc = 0, wrookc= 0, wknitc = 0, wbishoc = 0;
+        int bpawnc = 0, brookc = 0, bknitc = 0, bbishoc = 0;
+        for (int row = 0; row < 8; row++)
+        {
+            for (int col = 0; col < 8; col++)
+            {
+                Chesspiece* temp = game.getPlayAreaElement(row, col);
+                if(temp != nullptr){
+                    if(temp->getName() == "Pawnn" && temp->getTeam() == 'W'){
+                        w_pawns[wpawnc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        wpawnc +=1;
+                        window.draw(w_pawns[wpawnc-1]);
+                    }
+                    else if(temp->getName() == "Rook" && temp->getTeam() == 'W'){
+                        w_rooks[wrookc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        wrookc+=1;
+                        window.draw(w_rooks[wrookc-1]);
+                    }
+                    else if(temp->getName() == "Kingg" && temp->getTeam() == 'W'){
+                        w_king.setPosition(((col+1) * 100) , ((8-row) * 100));
+                        window.draw(w_king);
+                    }
+                    else if(temp->getName() == "Queen" && temp->getTeam() == 'W'){
+                        w_queen.setPosition(((col+1) * 100) , ((8-row) * 100));
+                        window.draw(w_queen);
+                    }
+                    else if(temp->getName() == "Bishop" && temp->getTeam() == 'W'){
+                        w_bishops[wbishoc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        wbishoc+=1;
+                        window.draw(w_bishops[wbishoc-1]);
+                    }
+                    else if(temp->getName() == "Knight" && temp->getTeam() == 'W'){
+                        w_knights[wknitc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        wknitc+=1;
+                        window.draw(w_knights[wknitc-1]);
+                    }
+
+                    //Black pieces
+                    if(temp->getName() == "Pawnn" && temp->getTeam() == 'B'){
+                        b_pawns[bpawnc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        bpawnc +=1;
+                        window.draw(b_pawns[bpawnc-1]);
+                    }
+                    else if(temp->getName() == "Rook" && temp->getTeam() == 'B'){
+                        b_rooks[brookc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        brookc+=1;
+                        window.draw(b_rooks[brookc-1]);
+                    }
+                    else if(temp->getName() == "Kingg" && temp->getTeam() == 'B'){
+                        b_king.setPosition(((col+1) * 100) , ((8-row) * 100));
+                        window.draw(b_king);
+                    }
+                    else if(temp->getName() == "Queen" && temp->getTeam() == 'B'){
+                        b_queen.setPosition(((col+1) * 100) , ((8-row) * 100));
+                        window.draw(b_queen);
+                    }
+                    else if(temp->getName() == "Bishop" && temp->getTeam() == 'B'){
+                        b_bishops[bbishoc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        bbishoc+=1;
+                        window.draw(b_bishops[bbishoc-1]);
+                    }
+                    else if(temp->getName() == "Knight" && temp->getTeam() == 'B'){
+                        b_knights[bknitc].setPosition(((col+1) * 100) , ((8-row) * 100));
+                        bknitc+=1;
+                        window.draw(b_knights[bknitc-1]);
+                    }
+                }
+            }
+        }
         window.draw(b_king);
         window.draw(b_queen);
 
-        w_pawns[0].setPosition(700,700);
-        window.draw(w_pawns[0]);
         window.display();
 
     }
     game.deleter();
     std:: cout << "Game ended!";
     return 0;
-}
-
-void createsprite(Board game){
-    int wpawnc = 0, wrookc= 0, wknitc = 0, wbishoc = 0;
-    int bpawnc = 0, brookc = 0, bknitc = 0;
-    for (int row = 0; row < 8; row++)
-    {
-        for (int col = 0; col < 8; col++)
-        {
-            Chesspiece* temp = game.getPlayAreaElement(row, col);
-            if(temp->getName() == "Pawnn" && temp->getTeam() == 'W'){
-                w_pawns[wpawnc].setPosition(((col+1) * 100) , ((row+1) * 100));
-                wpawnc +=1;
-            }
-        }
-        
-    }
-    
 }
