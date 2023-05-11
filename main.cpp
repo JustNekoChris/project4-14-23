@@ -4,37 +4,18 @@
 #include <SFML/Graphics.hpp>
 
 using namespace std;
+vector<sf::Sprite> w_bishops;
+vector<sf::Sprite> w_knights;
+vector <sf::Sprite> w_rooks;
+vector <sf::Sprite> w_pawns;
 
-// int main(){ 
-//     Board game;
-//     while(game.getMoves() < 50 && (!(game.gameOver()))){
-//         game.display();
-//         game.turn();
-//     }
-//     game.display();
-//     if(game.blackAlive){
-//         cout << "Congratulations, Black won in " << game.moves << " turns!" << endl;
-//     }
-//     else if(game.whiteAlive){
-//         cout << "Congratulations, White won in " << game.moves << " turns!" << endl;
-//     }
-//     else if(game.moves >= 50){
-//         cout << "Game ends because of the 50 move rule. Tie!" << endl;
+vector<sf::Sprite> b_bishops;
+vector<sf::Sprite> b_knights;
+vector <sf::Sprite> b_rooks;
+vector<sf::Sprite> b_pawns;
+int ogRow = -1, ogCol = -1, tRow = -1, tCol = -1; 
+bool click2coord(Board game, int mousePositionx, int mousePositiony);
 
-//     }
-//     cout <<"Good Game!";
-
-//     return 0; 
-// }
-    vector<sf::Sprite> w_bishops;
-    vector<sf::Sprite> w_knights;
-    vector <sf::Sprite> w_rooks;
-    vector <sf::Sprite> w_pawns;
-
-    vector<sf::Sprite> b_bishops;
-    vector<sf::Sprite> b_knights;
-    vector <sf::Sprite> b_rooks;
-    vector<sf::Sprite> b_pawns;
 int main()
 {
     Board game;
@@ -147,9 +128,7 @@ int main()
         temppawn.setScale(0.78125f, 0.78125f);
         b_pawns.push_back(temppawn); 
     }
-    if(w_pawns.empty()){
-        system("pause");
-    }
+    
 
     sf::Sprite w_king;
     w_king.setTexture(pieces_texture);
@@ -176,7 +155,6 @@ int main()
 
 
         //Game Loop
-
     while (window.isOpen())
     {
         //Check user Input
@@ -187,28 +165,46 @@ int main()
                 window.close();
                 break; 
             case sf::Event::MouseButtonPressed:
+                if (event.mouseButton.button == sf::Mouse::Left){
+                    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                
+                    // Check if the mouse click is within a certain area col, row.
+                    // Chesspiece* lol = game.getPlayAreaElement(0,0);
+                    // if(lol != nullptr){
+                    //     cout << "the pointer wasn't empty";
+                    //     system("pause");
+                    // }
 
-                if(turn){
-                    rect.setFillColor(color1);
-                    text.setFillColor(white);
-                    turn = false;
-                }
-                else{
-                    rect.setFillColor(color2);
-                    text.setFillColor(black);
-                    turn = true; 
+                    if(click2coord(game, mousePosition.x, mousePosition.y)){
+                        system("pause");
+                    }
+                    //1, 8  
+
                 }
                 break;
                 
             }
+            
 
             
+        }
+        if(game.getTurn()){
+            // turn = false;
+            rect.setFillColor(color2);
+            text.setFillColor(black);
+        }
+        else{
+            rect.setFillColor(color1);
+            text.setFillColor(white);
+            // turn = true; 
         }
         //Game Updates 
         if (game.getMoves() < 50 && (!(game.gameOver()))){
             // game.turn();
         }
         game.display();
+
+        //Win Conditions;
         if(game.blackAlive && game.gameOver()){
             std:: cout << "Congratulations, Black won in " << game.moves << " turns!" << endl;
         }
@@ -304,4 +300,139 @@ int main()
     game.deleter();
     std:: cout << "Game ended!";
     return 0;
+}
+bool click2coord(Board game, int mousePositionx, int mousePositiony){
+
+    //The first Row (within game logic),
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 800 && mousePositiony <= 900) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(0, col-1) != nullptr) {
+                    // Chesspiece* = game.getPlayAreaElement()
+                    ogRow = 0;
+                    ogCol = col - 1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 0;
+                tCol = col - 1;
+            }
+        }
+    } 
+    //2nd row
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 700 && mousePositiony <= 800) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(1, col-1) != nullptr) {
+                    ogRow = 1;
+                    ogCol = col - 1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 1;
+                tCol = col-1;
+            }
+        }
+    } 
+    //3rd row 
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 600 && mousePositiony <= 700) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(2, col-1) != nullptr) {
+                    ogRow = 2;
+                    ogCol = col-1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 2;
+                tCol = col-1;
+            }
+        }
+    } 
+    //4th row
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 500 && mousePositiony <= 600) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(3, col-1) != nullptr) {
+                    ogRow = 3;
+                    ogCol = col-1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 3;
+                tCol = col-1;
+            }
+        }
+    } 
+    //5th row
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 400 && mousePositiony <= 500) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(4, col-1) != nullptr) {
+                    ogRow = 4;
+                    ogCol = col-1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 4;
+                tCol = col-1;
+            }
+        }
+    } 
+    //6th row
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 300 && mousePositiony <= 400) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(5, col-1) != nullptr) {
+                    ogRow = 5;
+                    ogCol = col;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 5;
+                tCol = col-1;
+            }
+        }
+    } 
+    //7th row
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 200 && mousePositiony <= 300) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(6, col-1) != nullptr) {
+                    ogRow = 6;
+                    ogCol = col-1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 6;
+                tCol = col-1;
+            }
+        }
+    } 
+    //8th
+    for (int col = 1; col <= 8; ++col) {
+        if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
+            mousePositiony >= 100 && mousePositiony <= 200) {
+            if (ogRow == -1 && ogCol == -1) {
+                if (game.getPlayAreaElement(7, col-1) != nullptr) {
+                    ogRow = 7;
+                    ogCol = col-1;
+                    return true;
+                }
+            } else if (tRow == -1 && tCol == -1) {
+                tRow = 7;
+                tCol = col-1;
+            }
+        }
+    } 
+
+    return false; 
+
 }
