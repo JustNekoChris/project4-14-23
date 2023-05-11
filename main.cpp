@@ -163,30 +163,39 @@ int main()
         //Game Loop
     while (window.isOpen())
     {
+        std:: cout << "Loop begins" << endl;
         //Check user Input
         while (window.pollEvent(event))
         {
+            cout << "Trying to take in event" << endl; 
             switch(event.type){
             case sf::Event::Closed:
                 window.close();
                 break; 
             case sf::Event::MouseButtonPressed:
+            cout << "Mouse button press detected" << endl; 
                 if (event.mouseButton.button == sf::Mouse::Left){
                     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 
                     // Check if the mouse click is within a certain area col, row.
+                        cout << "Got Coordinates" << endl;
                         try {
+                            cout << "attempting to run click 2 coord" << endl;
                             if(click2coord(game, mousePosition.x, mousePosition.y)){
                                 //The bool here checks if its an initial move, this will run on the first click to add a highlighted box to the code
+                                cout << "first click registered" << endl; 
                                 int coordx = mousePosition.x/100 * 100;
                                 int coordy = mousePosition.y/100 * 100;
                                 selectBox.setPosition(coordx, coordy);
                                 selection = true; 
                             }
                             else{ //this condition should mean that a 2nd option was made, and now the two coordinates are saved
+                                cout << "2nd click";
                                 if(selection == true){
+                                    cout << "Selection was true (box was on screen)" << endl;
                                     selection = false;
                                     if(game.sfmlturn(tRow, tCol, ogRow, ogCol)){
+
                                         continue; 
                                     }
                                 }
@@ -332,7 +341,8 @@ int main()
 bool click2coord(Board game, int mousePositionx, int mousePositiony){
 
     //The first Row (within game logic),
-    for (int col = 1; col <= 8; ++col) {
+
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 800 && mousePositiony <= 900) {
             if (ogRow == -1 && ogCol == -1) {
@@ -350,7 +360,7 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //2nd row
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 700 && mousePositiony <= 800) {
             if (ogRow == -1 && ogCol == -1) {
@@ -367,7 +377,7 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //3rd row 
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 600 && mousePositiony <= 700) {
             if (ogRow == -1 && ogCol == -1) {
@@ -384,7 +394,7 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //4th row
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 500 && mousePositiony <= 600) {
             if (ogRow == -1 && ogCol == -1) {
@@ -401,7 +411,7 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //5th row
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 400 && mousePositiony <= 500) {
             if (ogRow == -1 && ogCol == -1) {
@@ -418,13 +428,13 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //6th row
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 300 && mousePositiony <= 400) {
             if (ogRow == -1 && ogCol == -1) {
                 if (game.getPlayAreaElement(5, col-1) != nullptr) {
                     ogRow = 5;
-                    ogCol = col;
+                    ogCol = col-1;
                     return true;
                 }
             } 
@@ -435,7 +445,7 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //7th row
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 200 && mousePositiony <= 300) {
             if (ogRow == -1 && ogCol == -1) {
@@ -451,7 +461,7 @@ bool click2coord(Board game, int mousePositionx, int mousePositiony){
         }
     } 
     //8th
-    for (int col = 1; col <= 8; ++col) {
+    for (int col = 1; col <= 8; col++) {
         if (mousePositionx >= col * 100 && mousePositionx <= (col + 1) * 100 &&
             mousePositiony >= 100 && mousePositiony <= 200) {
             if (ogRow == -1 && ogCol == -1) {
