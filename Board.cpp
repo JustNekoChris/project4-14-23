@@ -175,9 +175,9 @@ bool Board:: sfmlturn(int tRow, int tCol, int ogRow, int ogCol){
             playArea[tRow][tCol] = nullptr;
             swapPiece( tRow, tCol, ogRow, ogCol);
             moves++;
-            if(playArea[tRow][tCol]->getName() == "Pawnn"){
-                // checkPawnPromotion(); 
-            }
+            // if(playArea[tRow][tCol]->getName() == "Pawnn"){
+            //     // checkPawnPromotion(); 
+            // }
             swapTurn();
             return true; 
         }
