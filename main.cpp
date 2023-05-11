@@ -175,23 +175,31 @@ int main()
                     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 
                     // Check if the mouse click is within a certain area col, row.
-
-                    if(click2coord(game, mousePosition.x, mousePosition.y)){
-                        //The bool here checks if its an initial move, this will run on the first click to add a highlighted box to the code
-                        int coordx = mousePosition.x/100 * 100;
-                        int coordy = mousePosition.y/100 * 100;
-                        selectBox.setPosition(coordx, coordy);
-                        selection = true; 
-                    }
-                    else{ //this condition should mean that a 2nd option was made, and now the two coordinates are saved
-                        selection = false;
-                        if(game.sfmlturn(tRow, tCol, ogRow, ogCol)){
+                        try {
+                            if(click2coord(game, mousePosition.x, mousePosition.y)){
+                                //The bool here checks if its an initial move, this will run on the first click to add a highlighted box to the code
+                                int coordx = mousePosition.x/100 * 100;
+                                int coordy = mousePosition.y/100 * 100;
+                                selectBox.setPosition(coordx, coordy);
+                                selection = true; 
+                            }
+                            else{ //this condition should mean that a 2nd option was made, and now the two coordinates are saved
+                                if(selection == true){
+                                    selection = false;
+                                    if(game.sfmlturn(tRow, tCol, ogRow, ogCol)){
+                                        continue; 
+                                    }
+                                }
+                                tRow = -1;
+                                tCol = -1;
+                                ogRow = -1;
+                                ogCol = -1;
+                            }
                         }
-                        tRow = -1;
-                        tCol = -1;
-                        ogRow = -1;
-                        ogCol = -1;
-                    }
+                        catch (const std::exception& ex) {
+                            std::cout << "Exception caught: " << ex.what() << std::endl;
+                            system("pause");
+                        }
 
                 }
                 break;
@@ -241,12 +249,15 @@ int main()
         {
             for (int col = 0; col < 8; col++)
             {
+
                 Chesspiece* temp = game.getPlayAreaElement(row, col);
                 if(temp != nullptr){
                     if(temp->getName() == "Pawnn" && temp->getTeam() == 'W'){
+                        cout << "attempted pawn move col row piece " << col << " " << row << " " << wpawnc <<endl;
                         w_pawns[wpawnc].setPosition(((col+1) * 100) , ((8-row) * 100));
                         wpawnc +=1;
                         window.draw(w_pawns[wpawnc-1]);
+                        cout << " Moved pawn";
                     }
                     else if(temp->getName() == "Rook" && temp->getTeam() == 'W'){
                         w_rooks[wrookc].setPosition(((col+1) * 100) , ((8-row) * 100));
@@ -304,11 +315,14 @@ int main()
                 }
             }
         }
+        cout << "select failed " << endl; 
         if(selection){
             window.draw(selectBox);
         } 
-
+        cout << "post select" << endl; 
+        
         window.display();
+        cout << "past window display"; 
 
     }
     game.deleter();

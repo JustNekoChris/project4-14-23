@@ -166,24 +166,7 @@ int Board:: turn(){
     return 0;
 }
 
-bool Board:: sfmlturn(int tRow, int tCol, int ogRow, int ogCol){
-    if((whiteTurn && playArea[ogRow][ogCol]->getTeam() == 'W') || 
-    !whiteTurn && playArea[ogRow][ogCol]->getTeam() == 'B'){
-        if(playArea[ogRow][ogCol]-> MoveCheck(ogRow, ogCol, tRow, tCol, playArea)){
-            //Destruction code
-            delete playArea[tRow][tCol];
-            playArea[tRow][tCol] = nullptr;
-            swapPiece( tRow, tCol, ogRow, ogCol);
-            moves++;
-            // if(playArea[tRow][tCol]->getName() == "Pawnn"){
-            //     // checkPawnPromotion(); 
-            // }
-            swapTurn();
-            return true; 
-        }
-    }
-    return false;
-}
+
 void Board:: swapTurn(){
     //Might not change much either
     if(whiteTurn){
@@ -222,7 +205,8 @@ void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
     Chesspiece* piece2 = playArea[tRow][tCol];
     swap(piece1, piece2);
     playArea[tRow][tCol] = piece2;
-    playArea[ogRow][ogCol] = piece1;
+    //playArea[ogRow][ogCol] = piece1;
+    playArea[ogRow][ogCol] = nullptr;
    
 }
 void Board:: checkPawnPromotion(){
