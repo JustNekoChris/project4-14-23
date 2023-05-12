@@ -17,7 +17,7 @@ bool Pawn::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece*playAr
             {
                 
                 if(playArea[ogRow + 1][tCol] == nullptr && playArea[tRow][tCol] == nullptr){
-                    // notMoved = false;
+                    notMoved = false;
                     cout << "Moved double" << endl; 
 
                     return true;
@@ -92,5 +92,6 @@ bool Pawn::MoveCheck(int ogRow, int ogCol, int tRow, int tCol, Chesspiece*playAr
             }
         }
     }
+    cout << "No condition met" << endl;
     return false;
 }
