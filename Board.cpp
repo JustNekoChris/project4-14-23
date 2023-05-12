@@ -44,6 +44,7 @@ Board:: Board(){
         //playArea[0][i] = new Pawn('W');
         playArea[1][i] = new Pawn('W');
 
+
         // cout << "set first team" << endl;
     }
 
