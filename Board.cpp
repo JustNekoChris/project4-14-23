@@ -41,8 +41,9 @@ Board:: Board(){
     playArea[7][4] = new King('B'); 
     for (int i = 0; i < 8; i++)
     {
+        //playArea[0][i] = new Pawn('W');
         playArea[1][i] = new Pawn('W');
-        // playArea[1][i] = new Rook('W');
+
 
         // cout << "set first team" << endl;
     }
@@ -77,24 +78,12 @@ Board:: Board(){
     playArea[0][3] = new Queen('W');
     playArea[7][3] = new Queen('B');
     
-    // playArea[7][0]-> setName("Rookk");
-    // playArea[0][1]-> setName("Knite");
-    // playArea[7][1]-> setName("Knite");
-    // playArea[0][2]-> setName("Bihop");
-    // playArea[7][2]-> setName("Bihop");
-    // playArea[0][3]-> setName("Queen");
-    // playArea[7][3]-> setName("Queen");
-    // playArea[0][4]-> setName("Kingg");
-    // playArea[7][4]-> setName("Kingg");
-    // playArea[0][5]-> setName("Bihop");
-    // playArea[7][5]-> setName("Bihop");
-    // playArea[0][6]-> setName("Knite");
-    // playArea[7][6]-> setName("Knite");
-    // playArea[0][7]-> setName("Rookk");
-    // playArea[7][7]-> setName("Rookk"); 
+
     whiteAlive = true;
     blackAlive = true;
 }
+
+
 int Board:: turn(){
     if(whiteTurn){
         cout <<"It is White's turn" << endl;
@@ -177,6 +166,8 @@ int Board:: turn(){
 
     return 0;
 }
+
+
 void Board:: swapTurn(){
     //Might not change much either
     if(whiteTurn){
@@ -215,37 +206,17 @@ void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
     Chesspiece* piece2 = playArea[tRow][tCol];
     swap(piece1, piece2);
     playArea[tRow][tCol] = piece2;
-    playArea[ogRow][ogCol] = piece1;
+    //playArea[ogRow][ogCol] = piece1;
+    playArea[ogRow][ogCol] = nullptr;
    
 }
 void Board:: checkPawnPromotion(){
-    char user;
+    // char user;
     for (int i = 0; i < 8; i++)
     {   if(playArea[7][i] != nullptr){
             if(playArea[7][i]->getTeam() == 'W' && playArea[7][i]->getName() == "Pawnn"){
-                cout << "Your pawn can promote!" << endl;
-                cout << "What would you like to promote to: " << endl; 
-                cout << "Q - Queen, B - Bishop, K- Knight, R- Rook" << endl;
-                cin >> user;
-                user = toupper(user);
-                while(user != 'Q' && user!= 'B' && user != 'K' && user!= 'R'){
-                    cout << "Not valid, please try again" << endl;
-                    cin >> user;
-                }
                 delete playArea[7][i];
-                //TO DO: Implement these as the classes get finished.
-                if(user == 'Q'){
-                    playArea[7][i] = nullptr;
-                }
-                if(user == 'B'){
-                    playArea[7][i] = new Bishop('W');
-                }
-                if(user == 'K'){
-                    playArea[7][i] = nullptr;
-                }
-                if(user == 'R'){
-                    playArea[7][i] = new Rook('W');
-                }
+                playArea[7][i] = new Queen('W');
             }
         }
     }
@@ -254,29 +225,8 @@ void Board:: checkPawnPromotion(){
     {   
         if(playArea[0][i] != nullptr){
             if(playArea[0][i]->getTeam() == 'B' && playArea[0][i]->getName() == "Pawnn"){
-                cout << "Your pawn can promote!" << endl;
-                cout << "What would you like to promote to: " << endl; 
-                cout << "Q - Queen, B - Bishop, K- Knight, R- Rook" << endl;
-                cin >> user;
-                user = toupper(user);
-                while(user != 'Q' && user!= 'B' && user != 'K' && user!= 'R'){
-                    cout << "Not valid, please try again" << endl;
-                    cin >> user;
-                }
                 delete playArea[0][i];
-                //TO DO: Implement these as the classes get finished.
-                if(user == 'Q'){
-                    playArea[0][i] = nullptr;
-                }
-                if(user == 'B'){
-                    playArea[0][i] = new Bishop('B');
-                }
-                if(user == 'K'){
-                    playArea[0][i] = nullptr;
-                }
-                if(user == 'R'){
-                    playArea[0][i] = new Rook('B');
-                }
+                playArea[0][i] = new Queen('B');
             }
         }
     }
@@ -329,3 +279,5 @@ void Board::deleter()
     }
     cout << "Deleted board :]" << endl;
 }
+// std::string Board::getPiece(int row, int col) const {
+// }
