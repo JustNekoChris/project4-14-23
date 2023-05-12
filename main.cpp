@@ -45,31 +45,19 @@ int main()
     sf::Color color2(192, 192, 192); // dark white color
     rect.setFillColor(color1);
 
-    //Win box
-    sf:: RectangleShape winbox(sf::Vector2f(1000,300));
-    sf:: Color grey(135,135,135);
-    winbox.setFillColor(grey);
-    winbox.setPosition(0,350);
-    sf:: Text winquote("Tied game", font, 45);
-    winquote.setFillColor(sf::Color::White);
-    winquote.setStyle(sf::Text::Bold);
-    winquote.setPosition(500,500);
-    
-
     //User selection sprite
     bool selection = false;
     sf::RectangleShape selectBox;
     selectBox.setSize(sf::Vector2f(100, 100));
     selectBox.setFillColor(sf::Color(128, 128, 128, 128));
-    
+
     //Chessboard sprite
     sf::Texture background; 
     if(!background.loadFromFile("src/images/Chess_Board.png")){
         std:: cout << "Load failed" << endl;
         system("pause");
     }
-
-
+    
     //Moving chessboard to the proper spot;
     sf::Sprite board_sprite;
     board_sprite.setPosition(100,100);
@@ -249,6 +237,17 @@ int main()
         }
         game.display();
 
+        //Win Conditions;
+        if(game.blackAlive && game.gameOver()){
+            std:: cout << "Congratulations, Black won in " << game.moves << " turns!" << endl;
+        }
+        else if(game.whiteAlive && game.gameOver()){
+            std:: cout << "Congratulations, White won in " << game.moves << " turns!" << endl;
+        }
+        else if(game.moves >= 50 && game.gameOver()){
+            std:: cout << "Game ends because of the 50 move rule. Tie!" << endl;
+
+        }
 
             //Render window
         
@@ -327,22 +326,6 @@ int main()
                     }
                 }
             }
-        }
-        //Win Conditions;
-        if(game.blackAlive && game.gameOver()){
-            winquote.setString("Black Has Won!");
-            window.draw(winbox);
-            window.draw(winquote);
-
-        }
-        else if(game.whiteAlive && game.gameOver()){
-            winquote.setString("White Has Won!");
-            window.draw(winbox);
-            window.draw(winquote);
-        }
-        else if(game.moves >= 50 && game.gameOver()){
-            window.draw(winbox);
-            window.draw(winquote);
         }
         cout << "select failed " << endl; 
         if(selection){
