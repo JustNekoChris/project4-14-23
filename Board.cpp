@@ -210,14 +210,12 @@ void Board :: swapPiece(int tRow,int tCol,int ogRow,int ogCol)
    
 }
 void Board:: checkPawnPromotion(){
-    char user;
+    // char user;
     for (int i = 0; i < 8; i++)
     {   if(playArea[7][i] != nullptr){
             if(playArea[7][i]->getTeam() == 'W' && playArea[7][i]->getName() == "Pawnn"){
                 delete playArea[7][i];
-                if(user == 'Q'){
-                    playArea[7][i] = new Queen('W');
-                }
+                playArea[7][i] = new Queen('W');
             }
         }
     }
@@ -226,12 +224,8 @@ void Board:: checkPawnPromotion(){
     {   
         if(playArea[0][i] != nullptr){
             if(playArea[0][i]->getTeam() == 'B' && playArea[0][i]->getName() == "Pawnn"){
-            
                 delete playArea[0][i];
-                
-                if(user == 'Q'){
-                    playArea[0][i] = new Queen('B');
-                }
+                playArea[0][i] = new Queen('B');
             }
         }
     }
